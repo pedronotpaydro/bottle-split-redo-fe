@@ -1,14 +1,35 @@
 <template>
   <div id="app">
     <Nav />
+
+    <BeerCard />
   </div>
 </template>
 <script>
 import Nav from "./components/Nav";
+import BeerCard from "./components/BeerCard";
 export default {
   name: "app",
   components: {
     Nav,
+    BeerCard,
+  },
+  data() {
+    return {
+      beers: [],
+    };
+  },
+  mounted: function() {
+    fetch("http://localhost:3000/api/beers", {
+      method: "get",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((jsonData) => {
+        this.beers = jsonData;
+        console.log(this.beers);
+      });
   },
 };
 </script>
