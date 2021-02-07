@@ -1,26 +1,34 @@
 <template>
   <b-container>
-    <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-      <b-row no-gutters>
-        <b-col md="6">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-        </b-col>
-        <b-col md="6">
-          <b-card-body title="Horizontal Card">
-            <b-card-text>
-              This is a wider card with supporting text as a natural lead-in to
-              additional content. This content is a little bit longer.
-            </b-card-text>
-          </b-card-body>
-        </b-col>
-      </b-row>
-    </b-card>
+    <b-row>
+      <ul>
+        <li v-for="currentBeer in currentBeers" v-bind:key="currentBeer.id">
+          {{ currentBeer.name,  }} brewed by: {{ currentBeer.brewery }}
+        </li>
+      </ul>
+      <ul>
+        <li v-for="currentEvent in currentEvents" v-bind:key="currentEvent.id">
+          {{ currentEvent.event_name }} info:
+          {{ currentEvent.event_description }}
+        </li>
+      </ul>
+    </b-row>
   </b-container>
 </template>
+<script>
+export default {
+  props: {
+    currentBeers: {
+      type: Array,
+      required: true,
+    },
+    currentEvents: {
+      type: Array,
+      required: true,
+    },
+  },
+};
+</script>
 <style scoped>
 .container {
   height: 100%;

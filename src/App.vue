@@ -2,7 +2,7 @@
   <div id="app">
     <Nav />
 
-    <BeerCard />
+    <BeerCard :currentBeers="beers" :currentEvents="events" />
   </div>
 </template>
 <script>
@@ -14,22 +14,42 @@ export default {
     Nav,
     BeerCard,
   },
-  data() {
+  data: function() {
     return {
       beers: [],
+      events: [],
     };
   },
-  mounted: function() {
-    fetch("http://localhost:3000/api/beers", {
-      method: "get",
-    })
-      .then((response) => {
-        return response.json();
+  created: function() {
+    this.indexBeers();
+    this.indexEvents();
+
+    console.log(this.beers);
+  },
+
+  methods: {
+    indexBeers: function() {
+      fetch("http://localhost:3000/api/beers", {
+        method: "get",
       })
-      .then((jsonData) => {
-        this.beers = jsonData;
-        console.log(this.beers);
-      });
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonData) => {
+          (this.beers = jsonData), console.log(this.beers);
+        });
+    },
+    indexEvents: function() {
+      fetch("http://localhost:3000/api/events", {
+        method: "get",
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonData) => {
+          (this.events = jsonData), console.log(this.events);
+        });
+    },
   },
 };
 </script>
